@@ -13,16 +13,16 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.10.RELEASE</version>
+		<version>2.3.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring-cloud.version>Edgware.SR2</spring-cloud.version>
+		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
 		<java.version>1.8</java.version>
-		<distribution.management.snapshot.url>https://admin:password@localhost:8081/artifactory/libs-snapshot-local</distribution.management.snapshot.url>
-    <distribution.management.release.url>https://admin:password@localhost:8081/artifactory/libs-release-local</distribution.management.release.url>
+		<distribution.management.snapshot.url>http://admin:password@localhost:8081/artifactory/libs-snapshot-local</distribution.management.snapshot.url>
+    <distribution.management.release.url>http://admin:password@localhost:8081/artifactory/libs-release-local</distribution.management.release.url>
 	</properties>
 
 	<!-- [PIPELINE] -->
@@ -86,7 +86,9 @@
 						</goals>
 						<configuration>
 							<attach>true</attach>
-							<descriptor>${basedir}/src/assembly/contracts.xml</descriptor>
+							<descriptors>
+								${basedir}/src/assembly/contracts.xml
+							</descriptors>
 							<!-- If you want an explicit classifier remove the following line -->
 							<appendAssemblyId>false</appendAssemblyId>
 						</configuration>
@@ -94,6 +96,19 @@
 				</executions>
 			</plugin>
 			<!-- remove::end[] -->
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+						<execution>
+								<id>default-jar</id>
+								<phase>none</phase>
+								<goals>
+										<goal>jar</goal>
+								</goals>
+						</execution>
+				</executions>
+		</plugin>
 		</plugins>
 	</build>
 
@@ -107,7 +122,7 @@
 				<repository>
 					<id>spring-snapshots</id>
 					<name>Spring Snapshots</name>
-					<url>https://repo.spring.io/libs-snapshot-local</url>
+					<url>https://repo.spring.io/snapshot</url>
 					<snapshots>
 						<enabled>true</enabled>
 					</snapshots>
@@ -115,7 +130,7 @@
 				<repository>
 					<id>spring-milestones</id>
 					<name>Spring Milestones</name>
-					<url>https://repo.spring.io/libs-milestone-local</url>
+					<url>https://repo.spring.io/milestone</url>
 					<snapshots>
 						<enabled>false</enabled>
 					</snapshots>
@@ -133,7 +148,7 @@
 				<pluginRepository>
 					<id>spring-snapshots</id>
 					<name>Spring Snapshots</name>
-					<url>https://repo.spring.io/libs-snapshot-local</url>
+					<url>https://repo.spring.io/snapshot</url>
 					<snapshots>
 						<enabled>true</enabled>
 					</snapshots>
@@ -141,7 +156,7 @@
 				<pluginRepository>
 					<id>spring-milestones</id>
 					<name>Spring Milestones</name>
-					<url>https://repo.spring.io/libs-milestone-local</url>
+					<url>https://repo.spring.io/milestone</url>
 					<snapshots>
 						<enabled>false</enabled>
 					</snapshots>
@@ -149,7 +164,7 @@
 				<pluginRepository>
 					<id>spring-plugin-snapshots</id>
 					<name>Spring Snapshots</name>
-					<url>https://repo.spring.io/plugins-snapshot-local</url>
+					<url>https://repo.spring.io/snapshot</url>
 					<snapshots>
 						<enabled>true</enabled>
 					</snapshots>
@@ -157,7 +172,7 @@
 				<pluginRepository>
 					<id>spring-plugin-milestones</id>
 					<name>Spring Milestones</name>
-					<url>https://repo.spring.io/plugins-release-local</url>
+					<url>https://repo.spring.io/release</url>
 					<snapshots>
 						<enabled>false</enabled>
 					</snapshots>
